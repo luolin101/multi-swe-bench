@@ -52,7 +52,25 @@ your_output_dir/
 ├── <ORG>__<REPO>_related_issues.jsonl  
 └── <ORG>__<REPO>_dataset.jsonl         # Raw data of the PR
 ```
-
+### Batch Collection (Optional)
+If you want to collect data from multiple repositories automatically, you can:
+1. Crawl popular repositories by language and star count:
+    ```bash
+    python -m multi_swe_bench.collect.crawl_repos \
+        --language <language> \           # e.g., Python
+        --min_stars <min_star_count> \    # e.g., 500
+        --max_results <max_number_of_repos> \ 
+        --token <your_github_token> \
+        --output_dir <output_directory>
+    ```
+    This will generate a CSV file of repositories sorted by star count.
+2. Use the CSV to run batch collection:
+    ```bash
+    python -m multi_swe_bench.collect.get_from_repos_pipeline \
+        --csv_file <path_to_csv_file> \
+        --out_dir <your_output_dir_path> \
+        --tokens <your_github_tokens>
+    ```
 ## 2.Multi-SWE-bench dataset building module
 
 This is a module for building and processing Multi-SWE-bench datasets.
